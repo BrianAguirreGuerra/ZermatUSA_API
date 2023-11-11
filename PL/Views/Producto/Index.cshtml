@@ -1,0 +1,46 @@
+﻿@model List<DL.Producto>
+
+@{
+    ViewData["Title"] = "Lista de Productos";
+}
+
+<style>
+    .card {
+        width: 18rem;
+        margin: 10px;
+    }
+</style>
+
+<h2 style="text-align: center;">Lista de Productos</h2>
+
+<div class="container">
+    @if (TempData["Message"] != null)
+    {
+        @if (TempData.ContainsKey("IsError") && (bool)TempData["IsError"])
+        {
+            <div class="alert alert-danger">@TempData["Message"]</div>
+        }
+        else
+        {
+            <div class="alert alert-info">@TempData["Message"]</div>
+        }
+
+        TempData.Remove("Message");
+        TempData.Remove("IsError");
+    }
+
+    <div class="row">
+        @foreach (var producto in Model)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@producto.Nombre</h5>
+                        <p class="card-text">@producto.Descripción</p>
+                        <p class="card-text">Precio: $@producto.Precio</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

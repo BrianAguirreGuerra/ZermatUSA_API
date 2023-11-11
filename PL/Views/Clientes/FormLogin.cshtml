@@ -1,0 +1,82 @@
+﻿@model DL.Cliente
+
+@{
+    ViewData["Title"] = "Inicio de Sesión";
+}
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+        margin: 0;
+        padding-top: 0 !important;
+    }
+
+    form {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .alert-info {
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+        color: #0c5460;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+    .center-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar {
+        display: none !important;
+    }
+
+    .footer {
+        display: none !important;
+    }
+</style>
+
+<div style="width: 50%; margin: auto;">
+    @if (TempData["Message"] != null)
+    {
+        @if (TempData.ContainsKey("IsError") && (bool)TempData["IsError"])
+        {
+            <div class="alert alert-danger">@TempData["Message"]</div>
+        }
+        else
+        {
+            <div class="alert alert-info">@TempData["Message"]</div>
+        }
+
+        TempData.Remove("Message");
+        TempData.Remove("IsError");
+    }
+
+    <form asp-controller="Clientes" asp-action="Login" method="post" class="center-content">
+        <h2 style="text-align: center;">Inicio de Sesión</h2>
+        <div class="form-group">
+            <label for="Email">Email:</label>
+            <input type="email" class="form-control" id="Email" name="Email" required>
+        </div>
+        <div class="form-group">
+            <label for="Password">Contraseña:</label>
+            <input type="password" class="form-control" id="Password" name="Password" required>
+        </div>
+        <p></p>
+        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        <label>Aun no tienes cuenta?<a href="@Url.Action("Registro", "Clientes")" class="btn btn-link">Registrate</a></label>
+    </form>
+</div>
